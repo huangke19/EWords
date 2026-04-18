@@ -1,10 +1,19 @@
 {{define "content"}}
-<div class="page-header">
-  <h1>📚 单词库</h1>
-  <div class="stats">
-    <span>共 <strong>{{.Total}}</strong> 个词</span>
-    <span>已掌握 <strong>{{.Mastered}}</strong></span>
-    {{if gt .Due 0}}<span class="badge-due">🔔 待复习 {{.Due}}</span>{{end}}
+<div class="home-hero">
+  <div class="home-hero-copy">
+    <h1>单词库</h1>
+    <div class="stats home-stats">
+      <span>共 <strong>{{.Total}}</strong> 个词</span>
+      <span>已掌握 <strong>{{.Mastered}}</strong></span>
+      {{if gt .Due 0}}<span class="badge-due">🔔 待复习 {{.Due}}</span>{{end}}
+    </div>
+  </div>
+  <div class="quick-add-panel">
+    <form class="quick-add-form" action="/words" method="post" hx-post="/words" hx-target="#quick-add-feedback" hx-swap="innerHTML">
+      <input id="quick-word" type="text" name="word" placeholder="输入单词，回车即可" autocomplete="off" autofocus required>
+      <button type="submit" class="btn-primary">添加</button>
+    </form>
+    <div id="quick-add-feedback"></div>
   </div>
 </div>
 
@@ -59,4 +68,3 @@
 </div>
 {{end}}
 {{end}}
-
