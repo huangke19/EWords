@@ -114,6 +114,48 @@ go build -o inkwell .
 go build ./...
 ```
 
+## VPS 部署
+
+当前项目已经按以下约定部署到 VPS：
+
+- SSH：`root@207.246.106.137`
+- 目录：`/opt/inkwell`
+- 服务：`inkwell.service`
+
+仓库内置了一键部署脚本：
+
+```bash
+./deploy-vps.sh
+```
+
+默认行为：
+
+- 打包并上传当前仓库代码
+- 在 VPS 备份当前二进制和数据库
+- 解压覆盖项目文件
+- 在 VPS 执行 `go build -o inkwell_linux .`
+- 重启 `inkwell.service`
+- 对 `http://207.246.106.137:9090` 做健康检查
+
+如果你明确要用本地数据库覆盖 VPS 数据库，再执行：
+
+```bash
+./deploy-vps.sh --with-db
+```
+
+可用环境变量：
+
+- `INKWELL_REMOTE_HOST`
+- `INKWELL_REMOTE_DIR`
+- `INKWELL_REMOTE_SERVICE`
+- `INKWELL_REMOTE_URL`
+
+例如：
+
+```bash
+INKWELL_REMOTE_HOST=root@1.2.3.4 ./deploy-vps.sh
+```
+
 ## 环境变量
 
 | 变量 | 必填 | 默认值 | 说明 |
